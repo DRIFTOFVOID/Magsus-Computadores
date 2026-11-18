@@ -1,7 +1,7 @@
 {
   "name": "ASU",
   "model": "openai/gpt-oss-120b",
-  "proxyUrl": "/api/asu",
+  "proxyUrl": "https://SEU-SERVICO.onrender.com/api/asu",
   "theme": {
     "primary": "#22d3ee",
     "secondary": "#8b5cf6"
