@@ -1,7 +1,7 @@
 {
   "name": "ASU",
   "model": "openai/gpt-oss-120b",
-  "proxyUrl": "https://magsus-computadores.onrender.com",
+  "proxyUrl": "https://magsus-computadores.onrender.com/api/asu",
   "theme": {
     "primary": "#22d3ee",
     "secondary": "#8b5cf6"
