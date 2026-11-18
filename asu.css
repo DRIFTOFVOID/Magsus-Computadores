@@ -1,5 +1,4 @@
 
-/* ASU — orb neon + avatar + chat */
 .asu {
   position: fixed;
   inset: 0;
@@ -18,7 +17,6 @@
   will-change: translate,transform;
 }
 
-/* Orb */
 .asu-orb {
   width: 64px;
   height: 64px;
@@ -47,7 +45,7 @@
   border-radius: 50%;
   background: conic-gradient(transparent 0 50%,var(--c),var(--p),transparent);
 
-  /* Máscara padrão e versão compatível com WebKit. */
+  
   -webkit-mask-image: radial-gradient(circle,transparent 58%,#000 60%,#000 65%,transparent 67%);
   mask-image: radial-gradient(circle,transparent 58%,#000 60%,#000 65%,transparent 67%);
   -webkit-mask-repeat: no-repeat;
@@ -72,7 +70,6 @@
 .asu[data-state=talking] .asu-core { animation: asu-talk .35s ease-in-out infinite; }
 .asu[data-state=moving] .asu-core { filter: brightness(1.35); }
 
-/* Avatar tecnológico da ASU */
 .asu-avatar {
   width: 64px;
   height: 64px;
@@ -112,7 +109,6 @@
 
 .asu[data-state=thinking] .asu-avatar { filter: hue-rotate(22deg) brightness(1.12); }
 
-/* Balão */
 .asu-bubble {
   max-width: 240px;
   padding: 10px 14px;
@@ -132,7 +128,6 @@
 
 .asu-bubble.show { opacity: 1; scale: 1; }
 
-/* Painel */
 .asu-panel {
   position: fixed;
   right: 20px;
@@ -291,7 +286,6 @@
 .asu-cfg button { padding: 11px; }
 .asu.cfg .asu-cfg { display: flex; }
 
-/* Destaque nos elementos da página */
 .asu-hl {
   outline: 2px solid #22d3ee!important;
   outline-offset: 6px;
