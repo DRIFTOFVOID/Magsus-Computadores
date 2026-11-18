@@ -1,2 +1,0 @@
-# Magsus-Computadores
-SENAI
