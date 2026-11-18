@@ -1,4 +1,4 @@
-/* Interações do site Pegasus. Não altera nem substitui o JavaScript da ASU. */
+
 (() => {
   'use strict';
 
@@ -8,7 +8,6 @@
   };
 
   ready(() => {
-    // Menu responsivo
     const menuButton = document.getElementById('menu-toggle');
     const menu = document.getElementById('menu');
     if (menuButton && menu) {
@@ -22,8 +21,6 @@
         menuButton.setAttribute('aria-expanded', 'false');
       }));
     }
-
-    // Flip cards: clique/toque e teclado; não interfere nos links do verso.
     document.querySelectorAll('.flip-card').forEach(card => {
       card.setAttribute('tabindex', '0');
       card.setAttribute('role', 'button');
@@ -43,7 +40,6 @@
       });
     });
 
-    // Filtros da galeria
     const filters = [...document.querySelectorAll('.gallery-filter')];
     const galleryCards = [...document.querySelectorAll('.gallery-card')];
     filters.forEach(button => button.addEventListener('click', () => {
@@ -59,8 +55,7 @@
         card.style.display = show ? '' : 'none';
       });
     }));
-
-    // Formulário: envia multipart/form-data para o endpoint do servidor.
+    
     const form = document.getElementById('contact-form');
     const message = document.getElementById('form-message');
     const date = document.getElementById('data_agendamento');
@@ -85,7 +80,6 @@
       }
     });
 
-    // Rolagem suave para links internos
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', event => {
         const id = link.getAttribute('href');
@@ -98,7 +92,6 @@
       });
     });
 
-    // Animação de entrada progressiva, se suportada; conteúdo continua visível sem IntersectionObserver.
     const revealItems = document.querySelectorAll('.section-heading, .service-card, .gallery-card, .cta-box, .contact-info, .contact-form');
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -112,7 +105,6 @@
       revealItems.forEach(el => el.classList.add('is-visible'));
     }
 
-    // Slider principal: setas, indicadores, rotação automática e pausa ao interagir.
     const slider = document.querySelector('.hero-slider');
     if (slider) {
       const slides = [...slider.querySelectorAll('.hero-slide')];
@@ -155,7 +147,6 @@
       }
     }
 
-    // Lightbox acessível para a galeria: navegação, legenda, contador e Escape.
     const lightboxCards = [...document.querySelectorAll('.gallery-card')];
     if (lightboxCards.length) {
       const lightbox = document.createElement('div');
