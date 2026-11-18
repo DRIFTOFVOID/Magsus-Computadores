@@ -30,15 +30,39 @@ function limited(ip) {
   return recent.length > 30;
 }
 
+
 function setCors(req, res) {
+  const allowedOrigins = [
+    "https://driftofvoid.github.io"
+  ];
+
   const origin = req.headers.origin;
 
-  // Requisições sem Origin (ex.: verificações do servidor) são permitidas.
+  // Permite requisições sem Origin, como chamadas internas.
   if (!origin) return true;
 
-  if (!FRONTEND_ORIGIN || origin !== FRONTEND_ORIGIN) {
+  // Bloqueia origens não autorizadas.
+  if (!allowedOrigins.includes(origin)) {
+    console.warn("[CORS] Origem bloqueada:", origin);
     return false;
   }
+
+  // Cabeçalhos CORS.
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Vary", "Origin");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type"
+  );
+  res.setHeader("Access-Control-Max-Age", "86400");
+
+  return true;
+}
+
 
   res.setHeader("Access-Control-Allow-Origin", FRONTEND_ORIGIN);
   res.setHeader("Vary", "Origin");
