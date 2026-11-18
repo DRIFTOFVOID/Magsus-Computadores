@@ -1,0 +1,89 @@
+/* ASU — orb neon + avatar + chat */
+.asu{position:fixed;inset:0;pointer-events:none;z-index:9999;font-family:Inter,system-ui,sans-serif;--c:#22d3ee;--p:#8b5cf6}
+.asu>*{pointer-events:auto}
+.asu-orb,.asu-avatar,.asu-bubble{position:fixed;left:0;top:0;will-change:translate,transform}
+
+/* Orb */
+.asu-orb{width:64px;height:64px;border:0;background:none;padding:0;cursor:pointer;z-index:3;border-radius:50%}
+.asu-body{display:block;position:relative;width:100%;height:100%}
+.asu-core{position:absolute;inset:9px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff 0,#a5f3fc 12%,var(--c) 40%,var(--p) 80%,#4c1d95 100%);
+  box-shadow:0 0 18px var(--c),0 0 46px rgba(34,211,238,.65),0 0 90px rgba(139,92,246,.5),inset 0 0 14px rgba(255,255,255,.5);
+  animation:asu-breathe 3.2s ease-in-out infinite}
+.asu-ring{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(transparent 0 50%,var(--c),var(--p),transparent);
+  -webkit-mask:radial-gradient(circle,transparent 58%,#000 60% 65%,transparent 67%);
+  mask:radial-gradient(circle,transparent 58%,#000 60% 65%,transparent 67%);animation:asu-spin 3s linear infinite}
+.asu-orb.pulse::after{content:"";position:absolute;inset:6px;border-radius:50%;border:2px solid var(--c);animation:asu-ripple .8s ease-out forwards}
+.asu[data-state=thinking] .asu-ring{animation-duration:.6s}
+.asu[data-state=thinking] .asu-core{filter:hue-rotate(40deg) brightness(1.2)}
+.asu[data-state=talking] .asu-core{animation:asu-talk .35s ease-in-out infinite}
+.asu[data-state=moving] .asu-core{filter:brightness(1.35)}
+
+/* Avatar tecnológico da ASU */
+.asu-avatar{width:64px;height:64px;border-radius:50%;z-index:2;pointer-events:none!important;
+  background:#06101f;border:1.5px solid rgba(34,211,238,.85);overflow:hidden;
+  box-shadow:0 0 22px rgba(34,211,238,.5),0 0 38px rgba(139,92,246,.22),inset 0 0 12px rgba(34,211,238,.25);
+  animation:asu-bob 3s ease-in-out infinite}
+.asu-avatar img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;transform:scale(1.08);user-select:none;filter:saturate(1.15) contrast(1.08)}
+.asu-avatar::after{content:"";position:absolute;inset:3px;border:1px solid rgba(34,211,238,.35);border-radius:50%;pointer-events:none}
+.asu[data-state=talking] .asu-avatar{box-shadow:0 0 28px rgba(34,211,238,.75),0 0 44px rgba(139,92,246,.35)}
+.asu[data-state=thinking] .asu-avatar{filter:hue-rotate(22deg) brightness(1.12)}
+
+/* Balão */
+.asu-bubble{max-width:240px;padding:10px 14px;border-radius:16px 16px 4px 16px;font-size:13.5px;line-height:1.45;color:#e8faff;
+  background:rgba(8,18,37,.94);border:1px solid rgba(34,211,238,.45);box-shadow:0 8px 30px rgba(0,0,0,.45),0 0 24px rgba(34,211,238,.2);
+  opacity:0;scale:.85;transition:opacity .25s,scale .25s;pointer-events:none!important;z-index:4}
+.asu-bubble.show{opacity:1;scale:1}
+
+/* Painel */
+.asu-panel{position:fixed;right:20px;bottom:112px;width:370px;height:min(540px,calc(100vh - 150px));display:flex;flex-direction:column;
+  background:rgba(7,15,32,.94);backdrop-filter:blur(18px);border:1px solid rgba(34,211,238,.35);border-radius:22px;overflow:hidden;
+  box-shadow:0 24px 70px rgba(0,0,0,.6),0 0 60px rgba(34,211,238,.15);z-index:2;
+  opacity:0;visibility:hidden;transform:translateY(18px) scale(.95);transform-origin:bottom right;transition:.3s cubic-bezier(.2,.9,.3,1.2)}
+.asu.open .asu-panel{opacity:1;visibility:visible;transform:none}
+.asu-panel header{display:flex;align-items:center;gap:10px;padding:14px 14px 12px;border-bottom:1px solid rgba(148,163,184,.15);
+  background:linear-gradient(135deg,rgba(6,182,212,.18),rgba(139,92,246,.18))}
+.asu-panel header div{flex:1;display:flex;flex-direction:column;color:#f8fafc;font-size:15px}
+.asu-panel small{color:#94a3b8;font-size:11.5px}
+.asu-dot{width:10px;height:10px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399}
+.asu-panel header button{background:none;border:0;color:#94a3b8;font-size:16px;cursor:pointer;padding:4px 6px;border-radius:8px}
+.asu-panel header button:hover{color:#fff;background:rgba(255,255,255,.08)}
+.asu-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;scrollbar-width:thin}
+.asu .m{max-width:86%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.5;animation:asu-in .3s ease both}
+.asu .m.u{align-self:flex-end;background:linear-gradient(135deg,#06b6d4,#8b5cf6);color:#fff;border-bottom-right-radius:4px}
+.asu .m.b{align-self:flex-start;background:#101e36;color:#e2e8f0;border-bottom-left-radius:4px}
+.asu .m.a{align-self:flex-start;font-size:12px;color:var(--c);padding:2px 4px;background:none}
+.asu .m.t{display:flex;gap:4px;padding:13px}
+.asu .m.t i{width:7px;height:7px;border-radius:50%;background:var(--c);animation:asu-dots 1s infinite}
+.asu .m.t i:nth-child(2){animation-delay:.15s}.asu .m.t i:nth-child(3){animation-delay:.3s}
+.asu-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px}
+.asu-chips button{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.35);color:#a5f3fc;border-radius:999px;padding:6px 11px;font-size:12.5px;cursor:pointer;transition:.2s}
+.asu-chips button:hover{background:rgba(34,211,238,.2);transform:translateY(-1px)}
+.asu-panel form{display:flex;gap:8px;padding:12px 14px}
+.asu-panel form input,.asu-cfg input{flex:1;background:#0b162b;border:1px solid rgba(148,163,184,.25);border-radius:12px;padding:11px 13px;color:#f8fafc;font-size:14px;outline:0}
+.asu-panel form input:focus,.asu-cfg input:focus{border-color:var(--c);box-shadow:0 0 0 3px rgba(34,211,238,.15)}
+.asu-panel form button,.asu-cfg button{border:0;border-radius:12px;padding:0 15px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#06b6d4,#8b5cf6);font-weight:700}
+.asu-cfg{display:none;flex-direction:column;gap:10px;padding:14px;color:#cbd5e1;font-size:13px}
+.asu-cfg p{margin:0}.asu-cfg button{padding:11px}
+.asu.cfg .asu-cfg{display:flex}
+
+/* Destaque nos elementos da página */
+.asu-hl{outline:2px solid #22d3ee!important;outline-offset:6px;border-radius:12px;animation:asu-hl 1.2s ease-in-out infinite}
+
+@keyframes asu-breathe{50%{transform:scale(1.08);filter:brightness(1.15)}}
+@keyframes asu-spin{to{transform:rotate(360deg)}}
+@keyframes asu-ripple{to{transform:scale(2.4);opacity:0}}
+@keyframes asu-talk{50%{transform:scale(1.14)}}
+@keyframes asu-bob{50%{margin-top:-4px}}
+@keyframes asu-blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes asu-blink-dot{50%{opacity:.3}}
+@keyframes asu-yap{50%{height:11px}}
+@keyframes asu-in{from{opacity:0;transform:translateY(8px)}}
+@keyframes asu-dots{50%{transform:translateY(-5px);opacity:.5}}
+@keyframes asu-hl{50%{box-shadow:0 0 0 8px rgba(34,211,238,.12),0 0 44px rgba(34,211,238,.55)}}
+
+@media (max-width:600px){
+  .asu-panel{left:10px;right:10px;width:auto;bottom:92px;height:min(70vh,520px)}
+}
+@media (prefers-reduced-motion:reduce){.asu *{animation:none!important}}
